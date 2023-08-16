@@ -123,7 +123,7 @@ class Persona:
     return retrieve(self, perceived)
 
 
-  def plan(self, maze, personas, new_day, retrieved):
+  def plan(self, maze, personas):
     """
     Main cognitive function of the chain. It takes the retrieved memory and 
     perception, as well as the maze and the first day state to conduct both 
@@ -145,7 +145,7 @@ class Persona:
     OUTPUT 
       The target action address of the persona (persona.scratch.act_address).
     """
-    return plan(self, maze, personas, new_day, retrieved)
+    return plan(self, maze, personas)
 
 
   def execute(self, maze, personas, plan):
@@ -217,17 +217,11 @@ class Persona:
     self.scratch.curr_time = curr_time
 
     # Main cognitive sequence begins here. 
-    perceived = self.perceive(maze)
-    retrieved = self.retrieve(perceived)
-    plan = self.plan(maze, personas, new_day, retrieved)
-    self.reflect()
+    # perceived = self.perceive(maze)
+    # retrieved = self.retrieve(perceived)
+    plan = self.plan(maze, personas)
+    # self.reflect()
 
-    # <execution> is a triple set that contains the following components: 
-    # <next_tile> is a x,y coordinate. e.g., (58, 9)
-    # <pronunciatio> is an emoji. e.g., "\ud83d\udca4"
-    # <description> is a string description of the movement. e.g., 
-    #   writing her next novel (editing her novel) 
-    #   @ double studio:double studio:common room:sofa
     return self.execute(maze, personas, plan)
 
 
